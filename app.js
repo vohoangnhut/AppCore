@@ -12,8 +12,6 @@ app.set('views',path.join(__dirname, 'views'))
 app.set('view engine', 'pug')
 app.use('/',router)
 
-var change = 20;
-var change2 = 25;
 //https://help.github.com/articles/adding-an-existing-project-to-github-using-the-command-line/
 
 app.listen(port, function(){console.log(`app is running on port ${port}`)})
