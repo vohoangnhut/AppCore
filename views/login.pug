@@ -1,0 +1,17 @@
+extends layout.pug
+block pagecontent
+		.full-screem-wrap
+			.container
+				.row
+					.col-sm-6
+						h3 Sign in
+						form(role='form')
+							.form-group
+								label Email
+								input.form-control(type='email', placeholder='Enter email')
+							.form-group
+								label Password
+								input.form-control(type='password', placeholder='Password')
+							div
+								button.btn.btn-sm.btn-primary.pull-right(type='submit')
+									strong Log in

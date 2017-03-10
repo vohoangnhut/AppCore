@@ -1,45 +1,41 @@
 doctype html
-//
- Hyperspace by HTML5 UP
- html5up.net | @ajlkn
- Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
-html
- head
-  title Hyperspace by HTML5 UP
-  meta(charset='utf-8')
-  meta(name='viewport', content='width=device-width, initial-scale=1')
-  //
-   if lte IE 8script(src='assets/js/ie/html5shiv.js')
-  link(rel='stylesheet', href='assets/css/main.css')
-  //
-   if lte IE 9link(rel='stylesheet', href='assets/css/ie9.css')
-  //
-   if lte IE 8link(rel='stylesheet', href='assets/css/ie8.css')
- body
-  // Sidebar
-  include pageparts/header
-  // Wrapper
-  #wrapper
-    block content
-  // Footer
-  section#sidebar
-   .inner
-    nav
-     ul
-      li
-       a(href='#intro') Welcome
-      li
-       a(href='#one') Who we are
-      li
-       a(href='#two') What we do
-      li
-       a(href='#three') Get in touch
-  // Scripts
-  script(src='assets/js/jquery.min.js')
-  script(src='assets/js/jquery.scrollex.min.js')
-  script(src='assets/js/jquery.scrolly.min.js')
-  script(src='assets/js/skel.min.js')
-  script(src='assets/js/util.js')
-  //
-   if lte IE 8script(src='assets/js/ie/respond.min.js')
-  script(src='assets/js/main.js')
+html(lang='en')
+	head
+		meta(charset='utf-8')
+		meta(http-equiv='X-UA-Compatible', content='IE=edge')
+		meta(name='viewport', content='width=device-width, initial-scale=1')
+		meta(name='description', content='')
+		meta(name='author', content='')
+		link(rel='shortcut icon', type='image/x-icon', href='img/fav.ico')
+		title #D3-#{title}
+		// Bootstrap Core CSS
+		link(href='css/bootstrap.min.css', rel='stylesheet')
+		// Custom CSS
+		link(href='css/stylish-portfolio.css', rel='stylesheet')
+		// My Style CSS
+		link(href='css/my.style.css', rel='stylesheet')
+		// Custom Fonts
+		link(href='font-awesome/css/font-awesome.min.css', rel='stylesheet', type='text/css')
+		link(href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic', rel='stylesheet', type='text/css')
+		// HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries
+		// WARNING: Respond.js doesn't work if you view the page via file://
+		//if lt IE 9
+			script(src='https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js')
+			script(src='https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js')
+	body
+		// Navigation
+		include particulars/nav.pug
+
+		// Content
+		block pagecontent
+
+		// jQuery
+		script(src='js/jquery.js')
+		// Bootstrap Core JavaScript
+		script(src='js/bootstrap.min.js')
+		// Slim scroll
+		script(src='js/jquery.slimscroll.min.js')
+		// Backstretch
+		script(src='js/jquery.backstretch.min.js')
+		// Slim scroll
+		script(src='js/my.script.js')

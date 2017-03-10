@@ -1,29 +1,22 @@
-function _getIndexView(req,res){
-    const model = {
-        user: {
-            username : 'nhutvo',
-            email : 'nhutvo@vhn.vn'
-        },
-        title: 'HomePage'
-    }
-
-    res.render('home',model)
-}
-
 const _getIndexView2 = (req, res) => {
   const model = {
     user: {
       username: 'lucduong',
       email: 'luc@ltv.vn'
     },
-    title: 'HomePage'
+    title: 'Login'
   }
-  res.render('home', model)
+  res.render('login', model)
 }
 
 function _returnHomePage(req,res){
-    res.send(`fuck off here`)
+    res.render('home',{title:'Home'});
 }
 
-exports.getIndexView = _getIndexView
+const pagenotfound = (req, res) => {
+  res.render('404',{title:'Ngu Lồn'});
+}
+
+exports.getIndexView = _getIndexView2
 exports.returnHomePage = _returnHomePage
+exports.pagenotfound = pagenotfound
