@@ -1,0 +1,16 @@
+extends layout.pug
+block pagecontent
+		.full-screem-wrap
+			.container
+				.row
+					.col-sm-6
+						table
+							thead
+								tr
+									td firstName
+									td lastName
+							tbody
+								each user in users
+									tr
+										td #{user.firstName}
+										td= user.lastName
