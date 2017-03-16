@@ -1,0 +1,70 @@
+extends particulars/layout.pug
+block stylesheetFiles
+    link(href='css/sys_001.css', rel='stylesheet')
+block pagecontent
+    .container
+      .row
+        .col-sm-4
+          h3 Details
+          form.form-horizontal(role='form',action='/sys_001', method='post')
+            .form-group
+              label.col-sm-3.control-label Id
+              .col-sm-9
+                input.form-control(type='text', name='txtUsrId')
+            .form-group
+              label.col-sm-3.control-label Name
+              .col-sm-9
+                input.form-control(type='text', name='txtUsrNm')
+            .form-group
+              label.col-sm-3.control-label Email
+              .col-sm-9
+                input.form-control(type='email', name='txtEmail')
+            .form-group
+              label.col-sm-3.control-label Password
+              .col-sm-9
+                input.form-control(type='password', name='txtPsw')
+            .form-group
+              label.col-sm-3
+              .col-sm-9
+                button.btn.btn-sm.btn-info(type='submit', onclick='btnNew()')
+                  strong New
+                button.btn.btn-sm.btn-success(type='submit', onclick='btnSave()',style='margin-left: 3px;')
+                  strong Save
+        .col-sm-8
+          h3 Users List
+          table.table.table-hover
+            tr
+              th(style='width: 10px') #
+              th Name
+              th Email
+              th(style='width: 95px') Action
+            //- each user in users
+            //-   tr
+            //-     td.tbl-content-col 1. 
+            //-     td.tbl-content-col 1. 
+            //-     td.tbl-content-col 1. 
+            tr
+              td.tbl-content-col 1. 
+              td.tbl-content-col Update software
+              td.tbl-content-col softwareEnginee@localhost.com.vn
+              td(att-name='', att-email='', att-pass='', att-id='')
+                button.btn.btn-primary(type='button', onclick='btnEdit(this)')
+                  i.fa.fa-pencil
+                button.btn.btn-danger(type='button', onclick='btnDelete(this)',style='margin-left: 3px;')
+                  i.fa.fa-times
+            //- 
+            //-     tr
+            //-       td.tbl-content-col 1. 
+            //-       td.tbl-content-col #{user.usrNm}
+            //-       td.tbl-content-col #{user.usrEml}
+            //-       td(att-name='', att-email='', att-pass='', att-id='')
+            //-         button.btn.btn-primary(type='button', onclick='btnEdit(this)')
+            //-           i.fa.fa-pencil
+            //-         button.btn.btn-danger(type='button', onclick='btnDelete(this)',style='margin-left: 3px;')
+            //-           i.fa.fa-times
+            
+
+
+
+block ScriptFiles
+    script(src='js/sys_001.js')

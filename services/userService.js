@@ -1,22 +1,24 @@
 const User = require('../models').User
-const addUser = (usr, pwd) => {
+const insertUser = (usrId, usrNm, usrPsw ,usrEml) => {
     return User.create({
-        firstName : usr,
-        lastName  : pwd
+        usrId : usrId,
+        usrNm : usrNm,
+        usrEml : usrEml,
+        usrPsw : usrPsw
     })
 }
 
-const get_UserList = () => {
+const selectAllUser = () => {
     return User.findAll({
-        where: {
-            firstName: 'nhutvo'
-        }
+        // where: {
+        //     firstName: 'nhutvo'
+        // }
     })
 }
 
 
 
 module.exports = {
-    addUser,
-    get_UserList,
+    insertUser,
+    selectAllUser,
 }

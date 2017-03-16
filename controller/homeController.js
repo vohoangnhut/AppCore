@@ -22,6 +22,8 @@ const post_userlogin = (req, res) => {
         console.log(`add 1 user: `, user)
     })
 
+    res.redirect('getUserList');
+
 
 //   const model = {
 //     user: {
@@ -43,10 +45,9 @@ const getUserList = (req,res) => {
     })
 }
 
-
 //exports.get_userlogin = get_userlogin
 module.exports = {
     get_userlogin,
     post_userlogin,
-    getUserList
+    getUserList,
 }

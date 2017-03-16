@@ -13,7 +13,8 @@ html(lang='en')
 		// Custom CSS
 		link(href='css/stylish-portfolio.css', rel='stylesheet')
 		// My Style CSS
-		link(href='css/my.style.css', rel='stylesheet')
+		link(href='css/common.css', rel='stylesheet')
+		block stylesheetFiles
 		// Custom Fonts
 		link(href='font-awesome/css/font-awesome.min.css', rel='stylesheet', type='text/css')
 		link(href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic', rel='stylesheet', type='text/css')
@@ -23,6 +24,9 @@ html(lang='en')
 			script(src='https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js')
 			script(src='https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js')
 	body
+		// Navigation
+		include nav.pug
+
 		// Content
 		block pagecontent
 
@@ -30,3 +34,11 @@ html(lang='en')
 		script(src='js/jquery.js')
 		// Bootstrap Core JavaScript
 		script(src='js/bootstrap.min.js')
+		// Slim scroll
+		script(src='js/jquery.slimscroll.min.js')
+		// Backstretch
+		script(src='js/jquery.backstretch.min.js')
+		// commond script
+		script(src='js/common.js')
+		//Base on files script
+		block ScriptFiles
