@@ -6,65 +6,48 @@ block pagecontent
       .row
         .col-sm-4
           h3 Details
-          form.form-horizontal(role='form',action='/sys_001', method='post')
+          form.form-horizontal(role='form')
             .form-group
               label.col-sm-3.control-label Id
               .col-sm-9
-                input.form-control(type='text', name='txtUsrId')
+                input.form-control(type='text', name='txtUsrId',autocomplete='off')
             .form-group
               label.col-sm-3.control-label Name
               .col-sm-9
-                input.form-control(type='text', name='txtUsrNm')
+                input.form-control(type='text', name='txtUsrNm',autocomplete='off')
             .form-group
               label.col-sm-3.control-label Email
               .col-sm-9
-                input.form-control(type='email', name='txtEmail')
+                input.form-control(type='email', name='txtEmail',autocomplete='off')
             .form-group
               label.col-sm-3.control-label Password
               .col-sm-9
-                input.form-control(type='password', name='txtPsw')
+                input.form-control(type='password', name='txtPsw',autocomplete='off')
             .form-group
               label.col-sm-3
               .col-sm-9
-                button.btn.btn-sm.btn-info(type='submit', onclick='btnNew()')
-                  strong New
-                button.btn.btn-sm.btn-success(type='submit', onclick='btnSave()',style='margin-left: 3px;')
+                //button.btn.btn-sm.btn-info(onclick='btnNew()')
+                //  strong New
+                button.btn.btn-sm.btn-success(onclick='onClickBtnSave()',type='button',style='margin-left: 3px;',id='btnSave')
                   strong Save
         .col-sm-8
           h3 Users List
-          table.table.table-hover
+          table.table.table-hover#table-user
             tr
               th(style='width: 10px') #
               th Name
               th Email
               th(style='width: 95px') Action
-            //- each user in users
-            //-   tr
-            //-     td.tbl-content-col 1. 
-            //-     td.tbl-content-col 1. 
-            //-     td.tbl-content-col 1. 
-            tr
-              td.tbl-content-col 1. 
-              td.tbl-content-col Update software
-              td.tbl-content-col softwareEnginee@localhost.com.vn
-              td(att-name='', att-email='', att-pass='', att-id='')
-                button.btn.btn-primary(type='button', onclick='btnEdit(this)')
-                  i.fa.fa-pencil
-                button.btn.btn-danger(type='button', onclick='btnDelete(this)',style='margin-left: 3px;')
-                  i.fa.fa-times
-            //- 
-            //-     tr
-            //-       td.tbl-content-col 1. 
-            //-       td.tbl-content-col #{user.usrNm}
-            //-       td.tbl-content-col #{user.usrEml}
-            //-       td(att-name='', att-email='', att-pass='', att-id='')
-            //-         button.btn.btn-primary(type='button', onclick='btnEdit(this)')
-            //-           i.fa.fa-pencil
-            //-         button.btn.btn-danger(type='button', onclick='btnDelete(this)',style='margin-left: 3px;')
-            //-           i.fa.fa-times
-            
-
-
-
+            each user in users
+                tr(id= user.usrId)
+                  td.tbl-content-col.count 
+                  td.tbl-content-col #{user.usrNm}
+                  td.tbl-content-col #{user.usrEml}
+                  td(att-name= user.usrNm, att-email= user.usrEml, att-pass= user.usrPsw, att-usrId= user.usrId)
+                    button.btn.btn-primary(type='button', onclick='btnEdit(this)')
+                      i.fa.fa-pencil
+                    button.btn.btn-danger(type='button', onclick='btnDelete(this)',style='margin-left: 3px;')
+                      i.fa.fa-times
+           
 block ScriptFiles
     script(src='js/sys_001.js')
