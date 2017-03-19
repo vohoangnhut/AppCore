@@ -1,50 +1,54 @@
 //const Sequelize = require('sequelize')
 //var db = new Sequelize(process.env.DATABASE_URL);
 
+const bcrypt = require('bcrypt')
 
-// var User = db.define('user', {
-//   firstName: {
-//     type: Sequelize.STRING,
-//     field: 'first_name' // Will result in an attribute that is firstName when user facing but first_name in the database
-//   },
-//   lastName: {
-//     type: Sequelize.STRING
-//   }
-// }, {
-//   freezeTableName: true // Model tableName will be the same as the model name
-// });
-
-// User.sync({force: true}).then(function () {
-//   // Table created
-//   return User.create({
-//     firstName: 'John',
-//     lastName: 'Hancock'
-//   });
-// });
-
-// module.exports = User
+hashPassword = (user,options) => {
+    console.log(`HASH COMMING WITH PASS IS : ${user.usrPsw}`)
+    
+    // if(!user.changed('usrPsw'))
+    // {
+    //     console.log(`did not chang password`)
+    //     return
+    // }
+    return bcrypt.hash(user.usrPsw, 10).then(
+        hash => user.setDataValue('usrPsw',hash),err => reject(err))
+}
 
 /**
  * db is var db = new Sequelize(process.env.DATABASE_URL);
  * DataTypes is const Sequelize = require('sequelize')
  */
 module.exports = (db,DataTypes) => {
-        var User = db.define('user', 
-        {
-            usrId: {
+
+    let attribute = {
+        usrId: {
                 type: DataTypes.STRING
             },
             usrNm: {
                 type: DataTypes.STRING
             },
             usrPsw: {
-                type: DataTypes.STRING
+                type: DataTypes.TEXT
             },
             usrEml: {
                 type: DataTypes.STRING
             }
-            }, {
-            freezeTableName: true // Model tableName will be the same as the model name
-        });
-        return User;
+    }
+
+    const options = {
+        freezeTableName: true, // Model tableName will be the same as the model name
+        hooks : {
+            beforeCreate: hashPassword,
+            beforeUpdate: hashPassword,
+        },
+        instanceMethods: {
+            validPassword : function (password, next) {
+                bcrypt.compare(password, this.usrPsw, next)
+            }
+        }
+    }
+
+
+    return db.define('user',attribute,options);
 }

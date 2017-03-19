@@ -29,24 +29,14 @@ const post_sys_001 = (req,res) => {
 
     userService.insertUser(txtUsrId,txtUsrNm,txtPsw, txtEmail)
                 .then((user)=>{
-
-                    const newRow = `<tr>
+                    const newRow1 = `<tr id="${user.dataValues.usrId}">
                                         <td class="tbl-content-col count"> </td>
                                         <td class="tbl-content-col">${user.dataValues.usrNm}</td>
                                         <td class="tbl-content-col">${user.dataValues.usrEml}</td>
                                         <td att-name="${user.dataValues.usrNm}" 
                                             att-email="${user.dataValues.usrEml}" 
                                             att-pass="${user.dataValues.usrPsw}" 
-                                            att-usrId="${user.dataValues.usrId}">
-                                            <button class="btn btn-primary" type="button" onclick="btnEdit(this)"><i class="fa fa-pencil"></i></button>
-                                            <button class="btn btn-danger" type="button" onclick="btnDelete(this)" style="margin-left: 3px;"><i class="fa fa-times"></i></button>
-                                        </td>
-                                    </tr>`
-                    const newRow1 = `<tr id="${user.dataValues.usrId}">
-                                        <td class="tbl-content-col count"> </td>
-                                        <td class="tbl-content-col">${user.dataValues.usrNm}</td>
-                                        <td class="tbl-content-col">${user.dataValues.usrEml}</td>
-                                        <td att-name="${user.dataValues.usrNm}" att-email="${user.dataValues.usrEml}" att-pass="${user.dataValues.usrPsw}" att-usrid="${user.dataValues.usrId}">
+                                            att-usrid="${user.dataValues.usrId}">
                                             <button class="btn btn-primary" type="button" onclick="btnEdit(this)"><i class="fa fa-pencil"></i></button>
                                             <button class="btn btn-danger" type="button" onclick="btnDelete(this)" style="margin-left: 3px;"><i class="fa fa-times"></i></button>
                                         </td>
