@@ -1,7 +1,6 @@
 const User = require('../models').User
-const insertUser = (usrId, usrNm, usrPsw ,usrEml) => {
+const insertUser = (usrNm, usrPsw ,usrEml) => {
     return User.create({
-        usrId : usrId,
         usrNm : usrNm,
         usrEml : usrEml,
         usrPsw : usrPsw
@@ -9,28 +8,23 @@ const insertUser = (usrId, usrNm, usrPsw ,usrEml) => {
 }
 
 const selectAllUser = () => {
-    return User.findAll({
-        // where: {
-        //     firstName: 'nhutvo'
-        // }
-    })
+    return User.findAll()
 }
 
-const deleteUserByID = (usrId) => {
+const deleteUserByEmail = (usrEml) => {
     return User.destroy({
                 where: {
-                    usrId: usrId
+                    usrEml: usrEml
                 }
             });
 }
 
-const updateUserByID = (usrId,usrNm,usrEml,usrPsw) => {
+const updateUserByEmail = (usrNm,usrEml,usrPsw) => {
     return User.update({
                     usrNm: usrNm,
-                    usrEml: usrEml,
                     usrPsw: usrPsw
                 }, {
-                    where: {usrId: usrId},
+                    where: {usrEml: usrEml},
                     individualHooks: true
                 }
     );
@@ -41,6 +35,6 @@ const updateUserByID = (usrId,usrNm,usrEml,usrPsw) => {
 module.exports = {
     insertUser,
     selectAllUser,
-    deleteUserByID,
-    updateUserByID
+    deleteUserByEmail,
+    updateUserByEmail
 }

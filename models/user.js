@@ -22,9 +22,6 @@ hashPassword = (user,options) => {
 module.exports = (db,DataTypes) => {
 
     let attribute = {
-        usrId: {
-                type: DataTypes.STRING
-            },
             usrNm: {
                 type: DataTypes.STRING
             },
