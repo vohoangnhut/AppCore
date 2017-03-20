@@ -3,15 +3,15 @@ block pagecontent
 		.full-screem-wrap
 			.container
 				.row
-					.col-sm-6
+					.col-sm-4
 						h3 Sign in
-						form(role='form', action='/logindemo', method='post')
+						form(role='form', action='/login', method='post')
 							.form-group
-								label User Name
-								input.form-control(type='text', placeholder='Username', name='username')
+								label Email
+								input.form-control(type='email', placeholder='Email', name='usrEml')
 							.form-group
 								label Password
-								input.form-control(type='password', placeholder='Password', name='password')
+								input.form-control(type='password', placeholder='Password', name='usrPsw')
 							div
 								button.btn.btn-sm.btn-primary.pull-right(type='submit')
 									strong Log in

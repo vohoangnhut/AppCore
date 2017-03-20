@@ -36,6 +36,8 @@ const onClickBtnSave = () => {
 
 				resetField();
 				document.getElementsByName('txtUsrId')[0].disabled = false;
+				toggleAction(false);
+				
 			}
 		});	
 
@@ -73,7 +75,12 @@ const resetField = () => {
 		document.getElementsByName('txtUsrId')[0].value = "";
 		document.getElementsByName('txtUsrNm')[0].value = "";
 		document.getElementsByName('txtPsw')[0].value = "";
-		document.getElementsByName('txtEmail')[0].value = "";
+		document.getElementsByName('txtEmail')[0].value = "@gmail.com";
+}
+
+const toggleAction=(switchBT)=>{
+	$('.btn-primary').attr("disabled", switchBT);
+	$('.btn-danger').attr("disabled", switchBT);
 }
 
 
@@ -94,6 +101,8 @@ const btnEdit = (e) => {
 	document.getElementsByName('txtPsw')[0].value = pass;
 	document.getElementsByName('txtEmail')[0].value = email;
 
+
+	toggleAction(true);
 	//alert("btnNew")
 }
 

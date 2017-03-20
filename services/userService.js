@@ -30,10 +30,10 @@ const updateUserByID = (usrId,usrNm,usrEml,usrPsw) => {
                     usrEml: usrEml,
                     usrPsw: usrPsw
                 }, {
-                where: {
-                    usrId: usrId
+                    where: {usrId: usrId},
+                    individualHooks: true
                 }
-    });
+    );
 }
 
 
