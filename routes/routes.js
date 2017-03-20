@@ -17,9 +17,6 @@ router.route('/logindemo')
 router.route('/getUserList')
         .get(homeController.getUserList)
 
-		
-router.route('/getUserList')
-        .get(homeController.getUserList)
 
 /**
  * GET : Read
