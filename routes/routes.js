@@ -4,8 +4,11 @@ const defualtController = require('../controller/defaultController')
 const homeController = require('../controller/homeController')
 const sys001_Controller = require('../controller/sys_001_Ctlr')
 
-router.get('/',defualtController.returnHomePage);
-router.get('/login',defualtController.getIndexView);
+router.get('/',defualtController.homePage);
+
+router.route('/login')
+        .get(defualtController.get_login)
+        .post(defualtController.post_login)
 
 router.route('/logindemo')
         .get(homeController.get_userlogin)
