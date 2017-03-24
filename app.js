@@ -3,6 +3,7 @@ const path =  require('path')
 const dotenv = require('dotenv')
 const NODE_ENV = process.env.NODE_ENV || 'development'
 
+
 var bodyParser = require('body-parser')
 
 const app = express()
@@ -10,7 +11,7 @@ const port = '8080'
 
 const router = require('./routes/routes')
 
-app.use(express.static(path.join(__dirname,'public'),{maxAge:315360000 }))
+app.use(express.static(path.join(__dirname,'public'),{maxAge: 0}))//315360000 }))
 
 app.set('views',path.join(__dirname, 'views'))
 app.set('view engine', 'pug')
