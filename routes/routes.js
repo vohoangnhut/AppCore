@@ -6,12 +6,62 @@ const sys001_Controller = require('../controller/sys_001_Ctlr')
 const sys002_Controller = require('../controller/sys_002_controller')
 const sys003_Controller = require('../controller/sys_003_controller')
 
+const loginService = require('../services/loginService')
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
 
-router.get('/',defualtController.homePage);
+passport.serializeUser(function(user, done) {
+  done(null, user.id);
+});
 
-router.route('/login')
-        .get(defualtController.get_login)
-        .post(defualtController.post_login)
+passport.deserializeUser(function(id, done) {
+  loginService.getUserById(id).then(
+           function(user,err) {done(err, user);});
+});
+
+passport.use(new LocalStrategy(
+                { usernameField: 'usrEml',
+                passwordField: 'usrPsw'},
+  function(username, password, done) {
+
+    loginService.selectUserByMail(username).then(
+        function(user, err) {
+                                if (err) { return done(err); }
+
+                                if (!user) {
+                                        return done(null, false, { message: 'Incorrect Email.' });
+                                }
+
+                                user.validPassword(password, function (err, result) {
+                                        if(err) throw err;
+
+                                        if (!result) 
+                                                return done(null, false, { message: 'Incorrect password.' });
+                                        else
+                                                return done(null, user);
+                                });
+
+        })
+  }
+));
+
+
+router.get('/', ensureAuthenticated ,defualtController.homePage);
+
+function ensureAuthenticated(req, res, next){
+	if(req.isAuthenticated()){
+		return next();
+	} else {
+		req.flash('error_msg','You are not logged in');
+		res.redirect('/login');
+	}
+}
+
+
+router.get('/login',defualtController.get_login);
+router.post('/login', passport.authenticate('local', {successRedirect:'/', failureRedirect:'/login',failureFlash: true}));
+
+router.get('/logout', defualtController.get_logout);
 
 router.route('/logindemo')
         .get(homeController.get_userlogin)

@@ -5,6 +5,9 @@ block pagecontent
 				.row
 					.col-sm-4
 						h3 Sign in
+						if lstErrors != null
+							each item in lstErrors
+								<div class="alert alert-danger">#{item.msg}</div>
 						form(role='form', action='/login', method='post')
 							.form-group
 								label Email

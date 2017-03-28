@@ -4,15 +4,18 @@ nav#sidebar-wrapper
   ul.sidebar-nav
     a#menu-close.btn.btn-light.btn-lg.pull-right.toggle(href='#')
       i.fa.fa-times
+    
     li.sidebar-brand
       a(href='/', onclick='$("#menu-close").click();') #DKM
-    li
-      a(href='/sys_001', onclick='$("#menu-close").click();') Users
-    li
-      a(href='#about', onclick='$("#menu-close").click();') About
-    li
-      a(href='#services', onclick='$("#menu-close").click();') Services
-    li
-      a(href='#portfolio', onclick='$("#menu-close").click();') Portfolio
-    li
-      a(href='/login', onclick='$("#menu-close").click();') Login
+    if user != null
+      li
+        a(href='#') #{user.usrNm}
+      li
+        a(href='/sys_001', onclick='$("#menu-close").click();') Users
+      li
+        a(href='/logout', onclick='$("#menu-close").click();') Logout
+    else
+      li
+        a(href='/login', onclick='$("#menu-close").click();') Login
+
+

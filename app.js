@@ -1,36 +1,75 @@
 const express = require('express')
 const path =  require('path')
 const dotenv = require('dotenv')
-const NODE_ENV = process.env.NODE_ENV || 'development'
-
-
-var bodyParser = require('body-parser')
-
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser')
+const flash = require('connect-flash')
+const session = require('express-session');
+const expressValidator = require('express-validator');
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
 const app = express()
-const port = '8080'
 
 const router = require('./routes/routes')
-
 app.use(express.static(path.join(__dirname,'public'),{maxAge: 0}))//315360000 }))
 
 app.set('views',path.join(__dirname, 'views'))
 app.set('view engine', 'pug')
 
-// parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: false }))
-// parse application/json
-app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: false })) // parse application/x-www-form-urlencoded
+app.use(bodyParser.json()) // parse application/json
+app.use(cookieParser());
 
+// Express Session
+app.use(session({
+    secret: 'secret',
+    saveUninitialized: true,
+    resave: true
+}));
+
+// Passport init
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Connect Flash
+app.use(flash());
+
+// Global Vars
+app.use(function (req, res, next) {
+  res.locals.success_msg = req.flash('success_msg');
+  res.locals.error_msg = req.flash('error_msg');
+  res.locals.error = req.flash('error');
+  res.locals.user = req.user || null;
+  next();
+});
+
+//Express Validator
+app.use(expressValidator({
+  errorFormatter: function(param, msg, value) {
+      var namespace = param.split('.')
+      , root    = namespace.shift()
+      , formParam = root;
+    while(namespace.length) {
+      formParam += '[' + namespace.shift() + ']';
+    }
+    return {
+      param : formParam,
+      msg   : msg,
+      value : value
+    };
+  }
+}));
+
+
+//Set router
 app.use('/',router)
-console.log(NODE_ENV)
-if(NODE_ENV === 'development'){
-    dotenv.load({path : path.join(__dirname,'.env')})
-}
+
+app.set('port', process.env.port || 8080)
 
 const db = require('./models/index')
 //db.db_sequelize.sync({force: true})
 db.db_sequelize.sync()
     .then(()=>{
-        app.listen(port, function(){console.log(`app is running on port ${port}`)})
+        app.listen(app.get('port'), function(){console.log(`app is running on port ${app.get('port')}`)})
 })
 

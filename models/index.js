@@ -1,7 +1,11 @@
 const Sequelize = require('sequelize')
 const path = require('path')
-console.log(process.env.DATABASE_URL)
-const db_sequelize = new Sequelize('mysql://root:Teo54321@localhost:3306/db_node');
+const dotenv = require('dotenv')
+
+//Load env file
+dotenv.load({path : path.join(__dirname,'../.env')})
+
+const db_sequelize = new Sequelize(process.env.DATABASE_URL);
 
 const User = db_sequelize.import(path.join(__dirname,'user.js'))
 
