@@ -10,7 +10,10 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const app = express()
 
-const router = require('./routes/routes')
+//const router = require('./routes/routes')
+
+
+
 app.use(express.static(path.join(__dirname,'public'),{maxAge: 0}))//315360000 }))
 
 app.set('views',path.join(__dirname, 'views'))
@@ -30,6 +33,7 @@ app.use(session({
 // Passport init
 app.use(passport.initialize());
 app.use(passport.session());
+require('./config/passportAuth')(passport); // pass passport for configuration
 
 // Connect Flash
 app.use(flash());
@@ -62,7 +66,8 @@ app.use(expressValidator({
 
 
 //Set router
-app.use('/',router)
+//app.use('/',router)(passport)
+require('./routes/routes')(app,passport)
 
 app.set('port', process.env.port || 8080)
 
