@@ -1,7 +1,7 @@
 // const express = require('express')
 // const router = express.Router()
 const defualtController = require('../controller/defaultController')
-const homeController = require('../controller/homeController')
+//const homeController = require('../controller/homeController')
 const sys001_Controller = require('../controller/sys_001_Ctlr')
 const sys002_Controller = require('../controller/sys_002_controller')
 const sys003_Controller = require('../controller/sys_003_controller')
@@ -12,11 +12,7 @@ module.exports = (app , passport) => {
         app.get('/login',defualtController.get_login);
         app.post('/login', passport.authenticate('local', {successRedirect:'/', failureRedirect:'/login',failureFlash: true}));
         app.get('/logout', defualtController.get_logout);
-        app.route('/logindemo')
-                .get(homeController.get_userlogin)
-                .post(homeController.post_userlogin)
-        app.route('/getUserList')
-                .get(homeController.getUserList)
+
         /**
          * GET : Read
          * POST : Create
@@ -25,7 +21,7 @@ module.exports = (app , passport) => {
          * **/
                 
         app.route('/sys_001')
-                .get(sys001_Controller.get_sys_001)       
+                .get(isLoggedIn,sys001_Controller.get_sys_001)       
                 .post(sys001_Controller.post_sys_001)    
                 .put(sys001_Controller.put_sys_001)
                 .delete(sys001_Controller.delete_sys_001)
@@ -34,7 +30,7 @@ module.exports = (app , passport) => {
                 .get(sys002_Controller.getSys002)       
 
         app.route('/sys_003')
-                .get(sys003_Controller.getSys003)  
+                .get(isLoggedIn, sys003_Controller.getSys003)  
                 .post(sys003_Controller.postSys003)
         
         app.get('*',defualtController.pagenotfound)

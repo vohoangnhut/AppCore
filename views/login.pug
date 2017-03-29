@@ -1,20 +1,18 @@
 extends particulars/layout.pug
 block pagecontent
-		.full-screem-wrap
-			.container
-				.row
-					.col-sm-4
-						h3 Sign in
-						if lstErrors != null
-							each item in lstErrors
-								<div class="alert alert-danger">#{item.msg}</div>
-						form(role='form', action='/login', method='post')
-							.form-group
-								label Email
-								input.form-control(type='email', placeholder='Email', name='usrEml')
-							.form-group
-								label Password
-								input.form-control(type='password', placeholder='Password', name='usrPsw')
-							div
-								button.btn.btn-sm.btn-primary.pull-right(type='submit')
-									strong Log in
+		.row
+			.col-xs-12.col-sm-12.col-md-6.col-lg-6
+				h3 Sign in
+				if lstErrors != null
+					each item in lstErrors
+						<div class="alert alert-danger">#{item.msg}</div>
+				form(role='form', action='/login', method='post')
+					.form-group
+						label Email
+						input.form-control(type='email', placeholder='Email', name='usrEml')
+					.form-group
+						label Password
+						input.form-control(type='password', placeholder='Password', name='usrPsw')
+					div
+						button.btn.btn-sm.btn-primary.pull-right(type='submit')
+							strong LOG IN
