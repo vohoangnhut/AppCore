@@ -31,7 +31,6 @@ const updateUserByEmail = (usrNm,usrEml,usrPsw) => {
 }
 
 
-
 module.exports = {
     insertUser,
     selectAllUser,

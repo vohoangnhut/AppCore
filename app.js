@@ -10,8 +10,6 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const app = express()
 
-//const router = require('./routes/routes')
-
 
 
 app.use(express.static(path.join(__dirname,'public'),{maxAge: 0}))//315360000 }))
@@ -66,7 +64,6 @@ app.use(expressValidator({
 
 
 //Set router
-//app.use('/',router)(passport)
 require('./routes/routes')(app,passport)
 
 app.set('port', process.env.port || 8080)

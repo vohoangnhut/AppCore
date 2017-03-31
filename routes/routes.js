@@ -32,6 +32,14 @@ module.exports = (app , passport) => {
         app.route('/sys_003')
                 .get(isLoggedIn, sys003_Controller.getSys003)  
                 .post(sys003_Controller.postSys003)
+
+
+        app.get('/auth/facebook', passport.authenticate('facebook', { 
+                scope: [
+                        'email'
+                        ] 
+                }));
+        app.get('/auth/facebook/callback', passport.authenticate('facebook', { successRedirect: '/', failureRedirect: '/login',failureFlash: true }));        
         
         app.get('*',defualtController.pagenotfound)
 }
