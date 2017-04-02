@@ -11,6 +11,9 @@ hashPassword = (user,options) => {
     //     console.log(`did not chang password`)
     //     return
     // }
+    if(user.usrPsw === null || user.usrPsw === '')
+        return ''
+        
     return bcrypt.hash(user.usrPsw, 10).then(
         hash => user.setDataValue('usrPsw',hash),err => reject(err))
 }
@@ -30,6 +33,10 @@ module.exports = (db,DataTypes) => {
             },
             usrEml: {
                 type: DataTypes.STRING
+            },
+            localFlg : {
+                type : DataTypes.STRING,
+                defaultValue : 'N'
             }
     }
 

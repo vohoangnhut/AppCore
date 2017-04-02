@@ -101,6 +101,7 @@ const onClickBtnCancelUpdate = () => {
 	mode = 1;
 	$('#btnSave').html('<strong>Save</strong>')
 	document.getElementById('btnCancel').style.visibility = 'hidden'
+	document.getElementsByName('txtEmail')[0].disabled = false
 	toggleAction(false)
 	resetField()
 }

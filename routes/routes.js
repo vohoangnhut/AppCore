@@ -1,8 +1,7 @@
 // const express = require('express')
 // const router = express.Router()
 const defualtController = require('../controller/defaultController')
-//const homeController = require('../controller/homeController')
-const sys001_Controller = require('../controller/sys_001_Ctlr')
+const sys001_Controller = require('../controller/sys_001_controller')
 const sys002_Controller = require('../controller/sys_002_controller')
 const sys003_Controller = require('../controller/sys_003_controller')
 
@@ -21,13 +20,13 @@ module.exports = (app , passport) => {
          * **/
                 
         app.route('/sys_001')
-                .get(isLoggedIn,sys001_Controller.get_sys_001)       
+                .get(sys001_Controller.get_sys_001)       
                 .post(sys001_Controller.post_sys_001)    
                 .put(sys001_Controller.put_sys_001)
                 .delete(sys001_Controller.delete_sys_001)
 
         app.route('/sys_002')
-                .get(sys002_Controller.getSys002)       
+                .get(isLoggedIn , sys002_Controller.getSys002)       
 
         app.route('/sys_003')
                 .get(isLoggedIn, sys003_Controller.getSys003)  

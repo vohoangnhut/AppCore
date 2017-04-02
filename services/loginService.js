@@ -1,10 +1,11 @@
 const User = require('../models').User
 const UserFacebook = require('../models').UserFacebook
 
-const selectUserByMail = (usrEml) => {
+const selectUserByMail = (usrEml, isLocalUser) => {
     return User.findOne({
         where : {
-            usrEml : usrEml
+            usrEml : usrEml,
+            localFlg : isLocalUser
         }
     })
 }

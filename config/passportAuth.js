@@ -1,7 +1,6 @@
 const LocalStrategy = require('passport-local').Strategy;
 const FacebookStrategy = require('passport-facebook').Strategy;
-const loginService = require('../services/loginService')
-const userFacebookService = require('../services/userFacebookService')
+const loginService = require('../services/loginService');
 
 // load the auth variables
 var configAuth = require('./auth'); // use this one for testing
@@ -19,7 +18,7 @@ module.exports = function(passport) {
 
     passport.use(new LocalStrategy({ usernameField: 'usrEml',passwordField: 'usrPsw'},
         function(username, password, done) {
-                loginService.selectUserByMail(username).then(
+                loginService.selectUserByMail(username, 'Y').then(
                 function(user, err) {
                                         if (err) { return done(err); }
 
@@ -42,59 +41,46 @@ module.exports = function(passport) {
 
     passport.use(new FacebookStrategy(
         {
-                clientID: '435367986812872',
-                clientSecret: '9f8f6d1e4c96dd5624a5634980e77582',
-                callbackURL: 'http://localhost:8080/auth/facebook/callback',
-                profileFields: ['id', 'displayName', 'emails']
+                clientID: configAuth.facebookAuth.clientID,
+                clientSecret: configAuth.facebookAuth.clientSecret,
+                callbackURL: configAuth.facebookAuth.callbackURL,
+                profileFields: ['id', 'displayName', 'emails'],
+                //passReqToCallback: true //Req.body.foo
         },
 
-    function(accessToken, refreshToken, profile, done) {
-        loginService.selectUserByMail((profile.emails[0].value || '').toLowerCase()).then(
-            function(user, err) {
-                if (err) { return done(err); }
-                if (!user) {
-                    userService.insertUser(
-                        profile.displayName, 
-                        (profile.emails[0].value || '').toLowerCase(),
-                        accessToken)
-                        .then(
-                            function(user,err){
-                                console.log(user);
-                                if (err)
-                                    return done(err);
-                                    
-                                return done(null, user);
+    function( accessToken, refreshToken, profile, done) {
+        process.nextTick(function(){
+                loginService.selectUserByMail((profile.emails[0].value || '').toLowerCase(), 'N').then(
+
+                function(user, err) {
+                    if (err) 
+                    { console.log(`err throw`); return done(err); }
+
+                    if (!user) {
+                        if(profile.emails[0].value != '')
+                            {
+                                userService.insertUser( profile.displayName, null , (profile.emails[0].value || '').toLowerCase(), 'N')
+                                    .then(
+                                        function(user,err){
+                                            console.log(`after insert facebook user : ${user}`);
+
+                                            if (err) return done(err);
+                                                
+                                            return done(null, user);
+                                        }
+                                    )
                             }
-                        )
-                }
-
-                 done(null, user);
-
+                        else{
+                            console.log(`Something happenning ! can not get email.`)
+                            return done(null, false, { message: 'Something happenning ! can not get email.' });
+                        }
+                    }else {
+                        //Exist User
+                        console.log(`login by face - exist user`)
+                        return done(null, user); 
+                    }
+            })
         })
+        
     }));
-    
-    // function(accessToken, refreshToken, profile, done) {
-    //     loginService.selectUserFacebookById(profile.id).then(
-    //         function(user, err) {
-    //             if (err) { return done(err); }
-    //             if (!user) {
-    //                 userFacebookService.insertUserFacebook(
-    //                     profile.id,
-    //                     accessToken,
-    //                     profile.displayName, 
-    //                     (profile.emails[0].value || '').toLowerCase()).then(
-    //                         function(user,err){
-    //                             if (err)
-    //                                 return done(err);
-                                    
-    //                             return done(null, user);
-    //                         }
-    //                     )
-    //             }
-
-    //              done(null, user);
-
-    //     })
-    // }));
-
 }

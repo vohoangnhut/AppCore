@@ -1,7 +1,7 @@
 const loginService = require('../services/loginService')
 
 const get_login = (req, res) => {
-  res.render('login', {title:'login get'})
+  res.render('login', {title:'login get', noneNav : true})
 }
 
 
@@ -43,7 +43,7 @@ function homePage(req,res){
 }
 
 const pagenotfound = (req, res) => {
-  res.render('404',{title:'PAGE NODE FOUND'});
+  res.render('404',{title:'PAGE NODE FOUND', noneNav : true});
 }
 
 const get_logout = (req, res) => {

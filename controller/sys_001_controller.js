@@ -6,9 +6,10 @@ const get_sys_001 = (req,res) => {
 
   userService.selectAllUser()
     .then((usersLst)=> {
-
+        console.log(`render user mgmt - get`)
           const model = {
                 users: usersLst,
+                //lstErrors : {msg:'asdsd'},
                 title: 'USER1'
             }
 
@@ -25,31 +26,33 @@ const post_sys_001 = (req,res) => {
     const txtEmail = req.body.txtEmail;
     const txtPsw = req.body.txtPsw;
 
-    userService.insertUser(txtUsrNm,txtPsw, txtEmail)
-                .then((user)=>{
-                    const newRow1 = `<tr id="local${user.dataValues.usrEml}">
-                                        <td class="tbl-content-col count"> </td>
-                                        <td class="tbl-content-col">${user.dataValues.usrNm}</td>
-                                        <td class="tbl-content-col">${user.dataValues.usrEml}</td>
-                                        <td att-name="${user.dataValues.usrNm}" 
-                                            att-email="${user.dataValues.usrEml}" >
-                                            <button class="btn btn-primary" type="button" onclick="btnEdit(this)"><i class="fa fa-pencil"></i></button>
-                                            <button class="btn btn-danger" type="button" onclick="btnDelete(this)" style="margin-left: 3px;"><i class="fa fa-times"></i></button>
-                                        </td>
-                                    </tr>`
-                    const responseObj = {
-                        msg : 'Inserted Successfully',
-                        status  : '200',
-                        newRow : newRow1
-                    }
-                    res.end(JSON.stringify(responseObj))
-                })
+
+    userService.insertUser(txtUsrNm,txtPsw, txtEmail.toLowerCase(),'Y')
+            .then((user)=>{
+                const newRow1 = `<tr id="local${user.dataValues.usrEml}">
+                                    <td class="tbl-content-col count"> </td>
+                                    <td class="tbl-content-col">${user.dataValues.usrNm}</td>
+                                    <td class="tbl-content-col">${user.dataValues.usrEml}</td>
+                                    <td att-name="${user.dataValues.usrNm}" 
+                                        att-email="${user.dataValues.usrEml}" >
+                                        <button class="btn btn-primary" type="button" onclick="btnEdit(this)"><i class="fa fa-pencil"></i></button>
+                                        <button class="btn btn-danger" type="button" onclick="btnDelete(this)" style="margin-left: 3px;"><i class="fa fa-times"></i></button>
+                                    </td>
+                                </tr>`
+                const responseObj = {
+                    msg : 'Inserted Successfully',
+                    status  : '200',
+                    newRow : newRow1
+                }
+                res.end(JSON.stringify(responseObj))
+            })
+
     
 }
 
 //Update
 const put_sys_001 = (req,res) => {
-    console.log(`comming to Update`)
+
     const usrNm = req.body.txtUsrNm;   
     const usrEml = req.body.txtEmail;    
     const usrPsw = req.body.txtPsw;    

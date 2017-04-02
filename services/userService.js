@@ -1,9 +1,10 @@
 const User = require('../models').User
-const insertUser = (usrNm, usrPsw ,usrEml) => {
+const insertUser = (usrNm, usrPsw ,usrEml, localFlg) => {
     return User.create({
         usrNm : usrNm,
         usrEml : usrEml,
-        usrPsw : usrPsw
+        usrPsw : usrPsw,
+        localFlg : localFlg
     })
 }
 
