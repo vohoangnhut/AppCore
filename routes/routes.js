@@ -7,7 +7,7 @@ const sys003_Controller = require('../controller/sys_003_controller')
 
 module.exports = (app , passport) => {
         
-        app.get('/', isLoggedIn ,defualtController.homePage);
+        app.get('/' ,defualtController.homePage);
         app.get('/login',defualtController.get_login);
         app.post('/login', passport.authenticate('local', {successRedirect:'/', failureRedirect:'/login',failureFlash: true}));
         app.get('/logout', defualtController.get_logout);
@@ -20,7 +20,7 @@ module.exports = (app , passport) => {
          * **/
                 
         app.route('/sys_001')
-                .get(sys001_Controller.get_sys_001)       
+                .get(isLoggedIn,sys001_Controller.get_sys_001)       
                 .post(sys001_Controller.post_sys_001)    
                 .put(sys001_Controller.put_sys_001)
                 .delete(sys001_Controller.delete_sys_001)

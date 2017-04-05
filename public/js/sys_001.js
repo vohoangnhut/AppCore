@@ -20,7 +20,11 @@ const onClickBtnSave = () => {
 			dataType: 'json',
 			data: {txtUsrNm:txtUsrNm,txtPsw:txtPsw,txtEmail:txtEmail},
 			success: function (result) {
-				alert(result.msg)
+
+				swal({
+					title : result.msg,
+					type : 'success'
+				})
 
 				$('#btnSave').html('<strong>Save</strong>')
 				mode = 1;
@@ -35,6 +39,7 @@ const onClickBtnSave = () => {
 
 				resetField();
 				document.getElementsByName('txtEmail')[0].disabled = false;
+				document.getElementById('btnCancel').style.visibility = 'hidden'
 				toggleAction(false);
 				
 			}
@@ -52,7 +57,10 @@ const onClickBtnSave = () => {
 			dataType: 'json',
 			data: {txtUsrNm:txtUsrNm,txtPsw:txtPsw,txtEmail:txtEmail},
 			success: function (result) {
-				alert(result.msg)
+				swal({
+					title : result.msg,
+					type : 'success'
+				})
 				
 				$('#table-user').children().append(result.newRow)
 
@@ -107,26 +115,35 @@ const onClickBtnCancelUpdate = () => {
 }
 
 const btnDelete = (e) => {
-	var r = confirm("ARE YOU SURE !");
-	if (r == true) {
-		const usrEml = e.parentNode.getAttribute('att-email')
 
-		$.ajax({
-			type: "DELETE",
-			url: '/sys_001',
-			dataType: 'json',
-			data: {usrEml:usrEml},
-			success: function (result) {
-				var idElement = 'local'+result.localElement
-				document.getElementById(idElement).remove()
-				//$(idElement).remove()
-				resetField();
-			},
-			error: function(result){
-				console.log(result);
-			}
-		});	
-	}
+	swal({
+		title: 'Do you want to delete',
+		type: 'question',
+		showCancelButton: true,
+		}).then(function () {
+			const usrEml = e.parentNode.getAttribute('att-email')
+
+			$.ajax({
+				type: "DELETE",
+				url: '/sys_001',
+				dataType: 'json',
+				data: {usrEml:usrEml},
+				success: function (result) {
+					var idElement = 'local'+result.localElement
+					document.getElementById(idElement).remove()
+					resetField();
+
+					swal({
+						title: 'Successfull',
+						type: 'success'})
+				},
+				error: function(result){
+					console.log(result);
+				}
+			});	
+		})
+
+
 }
 
 

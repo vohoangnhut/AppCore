@@ -23,6 +23,8 @@ html(lang='en')
 		//if lt IE 9
 			script(src='https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js')
 			script(src='https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js')
+		// SWEET ALERT 
+		link(href='libs/sweetalert2/dist/sweetalert2.min.css', rel='stylesheet')
 	body
 		// Navigation
 		if !noneNav
@@ -31,6 +33,13 @@ html(lang='en')
 		.container
 			.row
 				.col-xs-12.col-sm-12.col-md-12.col-lg-12
+					.alert.alert-danger.alert-dismissible.alert-validation(style='display: none;')
+						button#btnCloseAlert.close(type='button', aria-label='Close')
+							span(aria-hidden='true') ×
+						p#msgContent
+							strong Warning!
+							|  Better check yourself, you're not looking too good.
+
 					if success_msg != ''
 						.alert.alert-success.alert-dismissible(role='alert')
 							button.close(type='button', data-dismiss='alert', aria-label='Close')
@@ -61,6 +70,8 @@ html(lang='en')
 		script(src='js/jquery.slimscroll.min.js')
 		// Backstretch
 		script(src='js/jquery.backstretch.min.js')
+		// SWEET ALERT 
+		script(src='libs/sweetalert2/dist/sweetalert2.min.js')
 		// commond script
 		script(src='js/common.js')
 		//Base on files script
