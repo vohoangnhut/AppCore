@@ -6,7 +6,9 @@ module.exports = {
     'facebookAuth' : {
         'clientID'      : '435367986812872', // your App ID
         'clientSecret'  : '9f8f6d1e4c96dd5624a5634980e77582', // your App Secret
-        'callbackURL'   : 'http://192.168.1.9:8080/auth/facebook/callback'//'http://localhost:8080/auth/facebook/callback'
+        'callbackURL'   : 'https://feckingawesome.herokuapp.com/auth/facebook/callback'
+        
+        //'callbackURL'   : 'http://192.168.1.9:8080/auth/facebook/callback'//'http://localhost:8080/auth/facebook/callback'
     },
 
     'twitterAuth' : {
