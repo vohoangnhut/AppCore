@@ -67,7 +67,8 @@ app.use(expressValidator({
 //Set router
 require('./routes/routes')(app,passport)
 
-app.set('port', process.env.port || 8080)
+console.log(`Port of service : ${process.env.PORT}`)
+app.set('port', process.env.PORT || 8080)
 
 const db = require('./models/index')
 //db.db_sequelize.sync({force: true})
