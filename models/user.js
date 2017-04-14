@@ -3,7 +3,7 @@
 
 const bcrypt = require('bcrypt')
 
-hashPassword = (user,options) => {
+const hashPassword = (user,next) => {
     console.log(`HASH COMMING WITH PASS IS : ${user.usrPsw}`)
     
     // if(!user.changed('usrPsw'))
@@ -12,10 +12,13 @@ hashPassword = (user,options) => {
     //     return
     // }
     if(user.usrPsw === null || user.usrPsw === '')
-        return ''
+        return next();
         
-    return bcrypt.hash(user.usrPsw, 10).then(
-        hash => user.setDataValue('usrPsw',hash),err => reject(err))
+    bcrypt.hash(user.usrPsw, 10, function(err,hash){
+        if (err) return done(err);
+        user.setDataValue('usrPsw',hash);
+        next;
+    })
 }
 
 /**

@@ -22,8 +22,8 @@ const deleteUserByEmail = (usrEml) => {
 
 const updateUserByEmail = (usrNm,usrEml,usrPsw) => {
     return User.update({
+                    usrPsw: usrPsw,
                     usrNm: usrNm,
-                    usrPsw: usrPsw
                 }, {
                     where: {usrEml: usrEml},
                     individualHooks: true
