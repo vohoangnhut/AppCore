@@ -70,8 +70,8 @@ require('./routes/routes')(app,passport)
 app.set('port', process.env.port || 8080)
 
 const db = require('./models/index')
-db.db_sequelize.sync({force: true})
-//db.db_sequelize.sync()
+//db.db_sequelize.sync({force: true})
+db.db_sequelize.sync()
     .then(()=>{
         app.listen(app.get('port'), function(){console.log(`app is running on port ${app.get('port')}`)})
 })
