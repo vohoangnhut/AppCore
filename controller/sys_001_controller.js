@@ -33,6 +33,7 @@ const post_sys_001 = (req,res) => {
                                     <td class="tbl-content-col count"> </td>
                                     <td class="tbl-content-col">${user.dataValues.usrNm}</td>
                                     <td class="tbl-content-col">${user.dataValues.usrEml}</td>
+                                    <td class="tbl-content-col">${user.dataValues.localFlg}</td>
                                     <td att-name="${user.dataValues.usrNm}" 
                                         att-email="${user.dataValues.usrEml}" >
                                         <button class="btn btn-primary" type="button" onclick="btnEdit(this)"><i class="fa fa-pencil"></i></button>
@@ -56,19 +57,39 @@ const put_sys_001 = (req,res) => {
     const usrNm = req.body.txtUsrNm;   
     const usrEml = req.body.txtEmail;    
     const usrPsw = req.body.txtPsw;    
-     
-    userService.updateUserByEmail(usrNm,usrEml,usrPsw)
-        .then((abc)=>{
-            console.log(`update --- ${abc}`)
-            
-            const responseObj = {
-                msg : 'Updated Successfully',
-                status  : '200',
-                localElement : usrEml
-            }
 
-            res.end(JSON.stringify(responseObj));
-    })
+    userService.findUserByMail(usrEml.toLowerCase())
+        .then((user)=>{
+            if(!user)
+                res.end('Mail dont exist');
+            else
+                {
+                    user.generateHash(usrPsw, function (err, result) {
+                            if(err) throw err;
+                            if (!result) 
+                                res.end('internal server error')
+                            else
+                            {
+                                userService.updateUserByEmail(usrNm,usrEml,result)
+                                    .then((abc)=>{
+                                        console.log(`update --- ${abc}`)
+                                        
+                                        const responseObj = {
+                                            msg : 'Updated Successfully',
+                                            status  : '200',
+                                            localElement : usrEml
+                                        }
+
+                                        res.end(JSON.stringify(responseObj));
+                                })
+                            }
+                                
+                    });
+
+                }
+        })
+     
+ 
 }
 
 const delete_sys_001 = (req,res) => {

@@ -20,27 +20,27 @@ const hashPassword = (user) => {
 module.exports = (db,DataTypes) => {
 
     let attribute = {
-            usrNm: {
-                type: DataTypes.STRING
-            },
-            usrPsw: {
+            noteTitle: {
                 type: DataTypes.TEXT
             },
-            usrEml: {
-                type: DataTypes.STRING
+            noteContent: {
+                type: DataTypes.TEXT
             },
-            localFlg : {
-                type : DataTypes.STRING,
-                defaultValue : 'N'
-            }
+            noteOther: {
+                type: DataTypes.TEXT
+            },
+            notePass : {
+                type : DataTypes.TEXT,
+            },
+            noteDate : {
+                type : DataTypes.TEXT,
+            },
+
     }
 
     const options = {
-        freezeTableName: true, // Model tableName will be the same as the model name
-        hooks : {
-            beforeCreate: hashPassword,
-            //beforeUpdate: hashPassword,
-        },
+        freezeTableName: true,
+
         instanceMethods: {
             validPassword : function (password, next) {
                 bcrypt.compare(password, this.usrPsw, next)
@@ -53,5 +53,5 @@ module.exports = (db,DataTypes) => {
     }
 
 
-    return db.define('user',attribute,options);
+    return db.define('notes',attribute,options);
 }

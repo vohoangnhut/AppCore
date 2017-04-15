@@ -12,6 +12,14 @@ const selectAllUser = () => {
     return User.findAll()
 }
 
+const findUserByMail = (usrEml) => {
+    return User.findOne({
+        where: {
+            usrEml: usrEml
+        }
+    })
+}
+
 const deleteUserByEmail = (usrEml) => {
     return User.destroy({
                 where: {
@@ -36,5 +44,6 @@ module.exports = {
     insertUser,
     selectAllUser,
     deleteUserByEmail,
-    updateUserByEmail
+    updateUserByEmail,
+    findUserByMail
 }

@@ -41,6 +41,7 @@ block pagecontent
                 th(style='width: 10px') #
                 th Name
                 th Email
+                th Local
                 th(style='width: 100px') Action
               if users != null
                 each user in users
@@ -48,11 +49,13 @@ block pagecontent
                       td.tbl-content-col.count 
                       td.tbl-content-col #{user.usrNm}
                       td.tbl-content-col #{user.usrEml}
+                      td.tbl-content-col #{user.localFlg}
                       td(att-name= user.usrNm, att-email= user.usrEml, att-pass= user.usrPsw)
-                        button.btn.btn-primary(type='button', onclick='btnEdit(this)')
-                          i.fa.fa-pencil
-                        button.btn.btn-danger(type='button', onclick='btnDelete(this)',style='margin-left: 3px;')
-                          i.fa.fa-times
+                        if user.localFlg == 'Y'
+                          button.btn.btn-primary(type='button', onclick='btnEdit(this)')
+                            i.fa.fa-pencil
+                          button.btn.btn-danger(type='button', onclick='btnDelete(this)',style='margin-left: 3px;')
+                            i.fa.fa-times
            
 block ScriptFiles
     script(src='js/sys_001.js')
