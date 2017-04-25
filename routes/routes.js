@@ -4,6 +4,7 @@ const defualtController = require('../controller/defaultController')
 const sys001_Controller = require('../controller/sys_001_controller')
 const sys002_Controller = require('../controller/sys_002_controller')
 const sys003_Controller = require('../controller/sys_003_controller')
+const image_cropper = require('../controller/image_cropper')
 
 module.exports = (app , passport) => {
         
@@ -31,6 +32,9 @@ module.exports = (app , passport) => {
         app.route('/sys_003')
                 .get(isLoggedIn, sys003_Controller.getSys003)  
                 .post(sys003_Controller.postSys003)
+
+        app.route('/cropper')
+                .get(image_cropper.get_image_cropper)  
 
 
         app.get('/auth/facebook', passport.authenticate('facebook', { 
