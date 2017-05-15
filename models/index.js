@@ -13,10 +13,12 @@ console.log(process.env.JAWSDB_URL);
 
 
 const User = db_sequelize.import(path.join(__dirname,'user.js'))
+const person = db_sequelize.import(path.join(__dirname,'person.js'))
 
 
 const db = {}
 db.User = User
+db.person = person
 db.db_sequelize = db_sequelize
 
 module.exports = db

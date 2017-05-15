@@ -4,6 +4,7 @@ const defualtController = require('../controller/defaultController')
 const sys001_Controller = require('../controller/sys_001_controller')
 const sys002_Controller = require('../controller/sys_002_controller')
 const sys003_Controller = require('../controller/sys_003_controller')
+const angularAPIcontroller = require('../controller/angularAPIcontroller')
 const image_cropper = require('../controller/image_cropper')
 
 module.exports = (app , passport) => {
@@ -12,6 +13,17 @@ module.exports = (app , passport) => {
         app.get('/login',defualtController.get_login);
         app.post('/login', passport.authenticate('local', {successRedirect:'/', failureRedirect:'/login',failureFlash: true}));
         app.get('/logout', defualtController.get_logout);
+
+      app.route('/api')
+                .get( angularAPIcontroller.getAll)       
+                .post( angularAPIcontroller.create) 
+      app.route('/api/:id')
+                .get( angularAPIcontroller.getById)     
+                .delete( angularAPIcontroller.deleteById)
+                .put(angularAPIcontroller.update)
+                
+
+//getById
 
         /**
          * GET : Read
@@ -53,4 +65,12 @@ function isLoggedIn(req, res, next){
 	
         req.flash('error_msg','You are not logged in');
         res.redirect('/login');
+}
+
+function allowCrossDomain (req, res, next) {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+    res.header('Access-Control-Allow-Headers', 'Content-Type');
+
+    next();
 }

@@ -8,9 +8,10 @@ const session = require('express-session');
 const expressValidator = require('express-validator');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
-const app = express()
+const cors = require('cors');
+const app = express();
 
-
+app.use(cors())
 
 app.use(express.static(path.join(__dirname,'public'),{maxAge: 0}))//315360000 }))
 
