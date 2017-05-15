@@ -6,9 +6,11 @@ block pagecontent
     .row
         input#imgInp.file(type='file', accept='image/*')
     .row
-        img#reviewImage(src='#', alt='your image')
+        .col-md-6
+            img#reviewImage(src='#', alt='your image', style='width:500px')
     .row
-        img#reviewImage1(src='img/bg1.jpg', alt='your image')
+        .col-md-6
+            img#reviewImage11(src='', alt='your image', style='width:500px')
            
 block ScriptFiles
     script(src='js/cropperjs/cropper.js')

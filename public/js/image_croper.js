@@ -6,13 +6,22 @@ function readURL(input) {
 
         reader.onload = function (e) {
             $('#reviewImage').attr('src', e.target.result);
+            b();
         }
 
-        reader.readAsDataURL(input.files[0]);
+        reader.readAsDataURL(input.files[0])
     }
 
-    $('#reviewImage').cropper({
-        aspectRatio: 16 / 9,
+    // $('#reviewImage').cropper({
+    //     aspectRatio: 1/1,
+    // });
+}
+
+function b() {
+  //crop_dp(); //This will run the jcrop.
+  $('#reviewImage').cropper({
+        aspectRatio: 1/1,
+        zoomOnWheel:false,modal:true,preview: '#reviewImage11',
         crop: function(e) {
             // Output the result data for cropping image.
             console.log(e.x);
@@ -24,6 +33,8 @@ function readURL(input) {
             console.log(e.scaleY);
         }
     });
+
+    $('#reviewImage').attr('src', $('#reviewImage').cropper('getCroppedCanvas').toDataURL('image/jpeg') );
 }
 
 $("#imgInp").change(function(){
@@ -41,13 +52,5 @@ $("#imgInp").change(function(){
             console.log(e.rotate);
             console.log(e.scaleX);
             console.log(e.scaleY);
-        },
-        autoCrop : false,
-         ready: function () {
-            // Do something here
-            // ...
-
-            // And then
-            $(this).cropper('crop');
         }
     });
